@@ -18,4 +18,5 @@ public class Lots {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+
 }
