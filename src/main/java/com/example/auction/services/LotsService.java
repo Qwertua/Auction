@@ -43,6 +43,8 @@ public class LotsService {
                 .collect(Collectors.toList());
     }
 
+
+
     public String generateLotUrl(Long id) {
         String baseUrl = "http://localhost:8080/lot/{id}";
         return UriComponentsBuilder.fromHttpUrl(baseUrl)
