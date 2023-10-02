@@ -42,14 +42,14 @@ public class LotsService {
                 .filter(lot -> currentTime.isAfter(lot.getStartTime()) && currentTime.isBefore(lot.getEndTime()))
                 .collect(Collectors.toList());
     }
-
-
-
+  
+    public List<Lots> searchLotByTittle (String word){
+        return lotRepository.findByTitleContaining(word);
+    }
+  
     public String generateLotUrl(Long id) {
         String baseUrl = "http://localhost:8080/lot/{id}";
-        return UriComponentsBuilder.fromHttpUrl(baseUrl)
-                .buildAndExpand(id)
-                .toUriString();
+            return UriComponentsBuilder.fromHttpUrl(baseUrl)
+                  .buildAndExpand(id)
+                  .toUriString();
     }
-}
-
