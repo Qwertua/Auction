@@ -41,5 +41,8 @@ public class LotsService {
                 .filter(lot -> currentTime.isAfter(lot.getStartTime()) && currentTime.isBefore(lot.getEndTime()))
                 .collect(Collectors.toList());
     }
+    public List<Lots> searchLotByTittle (String word){
+        return lotRepository.findByTitleContaining(word);
+    }
 }
 
