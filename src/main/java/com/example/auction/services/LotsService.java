@@ -4,6 +4,7 @@ import com.example.auction.models.Lots;
 import com.example.auction.repo.LotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -45,6 +46,7 @@ public class LotsService {
                 .collect(Collectors.toList());
     }
 
+
     public void startAuction(Long lotId) {
         auctionStatusMap.put(lotId, true);
     }
@@ -56,5 +58,15 @@ public class LotsService {
     private boolean isAuctionRunning(Long lotId) {
         return auctionStatusMap.getOrDefault(lotId, false);
     }
-}
 
+    public List<Lots> searchLotByTittle(String word) {
+        return lotRepository.findByTitleContaining(word);
+    }
+
+    public String generateLotUrl(Long id) {
+        String baseUrl = "http://localhost:8080/lot/{id}";
+        return UriComponentsBuilder.fromHttpUrl(baseUrl)
+                .buildAndExpand(id)
+                .toUriString();
+    }
+}
