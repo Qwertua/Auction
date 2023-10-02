@@ -4,6 +4,7 @@ import com.example.auction.models.Lots;
 import com.example.auction.repo.LotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -40,6 +41,13 @@ public class LotsService {
         return getAllLots().stream()
                 .filter(lot -> currentTime.isAfter(lot.getStartTime()) && currentTime.isBefore(lot.getEndTime()))
                 .collect(Collectors.toList());
+    }
+
+    public String generateLotUrl(Long id) {
+        String baseUrl = "http://localhost:8080/lot/{id}";
+        return UriComponentsBuilder.fromHttpUrl(baseUrl)
+                .buildAndExpand(id)
+                .toUriString();
     }
 }
 
