@@ -4,8 +4,14 @@ import com.example.auction.models.Lots;
 import com.example.auction.repo.LotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class LotsService {
+
     private final LotRepository lotRepository;
 
     @Autowired
@@ -13,16 +19,27 @@ public class LotsService {
         this.lotRepository = lotRepository;
     }
 
-    public Lots findById (Long id){
+    public Lots findById(Long id){
         return lotRepository.findById(id).orElse(null);
     }
 
-    public Lots createLots (Lots lots){
+    public Lots createLots(Lots lots){
         return lotRepository.save(lots);
     }
 
-    public void deleteByID (Long id){
+    public void deleteByID(Long id){
         lotRepository.deleteById(id);
+    }
+
+    public List<Lots> getAllLots(){
+        return lotRepository.findAll();
+    }
+
+    public List<Lots> searchActiveLots(){
+        LocalDateTime currentTime = LocalDateTime.now();
+        return getAllLots().stream()
+                .filter(lot -> currentTime.isAfter(lot.getStartTime()) && currentTime.isBefore(lot.getEndTime()))
+                .collect(Collectors.toList());
     }
 }
 
