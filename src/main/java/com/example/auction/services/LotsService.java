@@ -16,40 +16,41 @@ public class LotsService {
     private final LotRepository lotRepository;
 
     @Autowired
-    public LotsService(LotRepository lotRepository){
+    public LotsService(LotRepository lotRepository) {
         this.lotRepository = lotRepository;
     }
 
-    public Lots findById(Long id){
+    public Lots findById(Long id) {
         return lotRepository.findById(id).orElse(null);
     }
 
-    public Lots createLots(Lots lots){
+    public Lots createLots(Lots lots) {
         return lotRepository.save(lots);
     }
 
-    public void deleteByID(Long id){
+    public void deleteByID(Long id) {
         lotRepository.deleteById(id);
     }
 
-    public List<Lots> getAllLots(){
+    public List<Lots> getAllLots() {
         return lotRepository.findAll();
     }
 
-    public List<Lots> searchActiveLots(){
+    public List<Lots> searchActiveLots() {
         LocalDateTime currentTime = LocalDateTime.now();
         return getAllLots().stream()
                 .filter(lot -> currentTime.isAfter(lot.getStartTime()) && currentTime.isBefore(lot.getEndTime()))
                 .collect(Collectors.toList());
     }
-  
-    public List<Lots> searchLotByTittle (String word){
+
+    public List<Lots> searchLotByTittle(String word) {
         return lotRepository.findByTitleContaining(word);
     }
-  
+
     public String generateLotUrl(Long id) {
         String baseUrl = "http://localhost:8080/lot/{id}";
-            return UriComponentsBuilder.fromHttpUrl(baseUrl)
-                  .buildAndExpand(id)
-                  .toUriString();
+        return UriComponentsBuilder.fromHttpUrl(baseUrl)
+                .buildAndExpand(id)
+                .toUriString();
     }
+}
