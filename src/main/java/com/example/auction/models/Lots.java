@@ -14,8 +14,10 @@ public class Lots {
     private Long id;
     private String title;
     private String description;
-    private int currentPrice;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+    @OneToOne
+    @JoinColumn(name = "starting_price_id")
+    private StartingPrice startingPrice;
 }
