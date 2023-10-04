@@ -46,7 +46,6 @@ public class LotsService {
                 .collect(Collectors.toList());
     }
 
-
     public void startAuction(Long lotId) {
         auctionStatusMap.put(lotId, true);
     }
