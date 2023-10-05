@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>View Lot</title>
+</head>
+<body>
+<h2>Lot Details</h2>
+<div th:switch="${lots}">
+    <h2 th:case="null">No lots found!</h2>
+    <div th:case="*">
+        <h2>Your own lot</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tittle</th>
+                <th>Description</th>
+                <th>StartTime</th>
+                <th>EndTime</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="lot : ${lots}">
+                <td th:text="${lot.id}"></td>
+                <td th:text="${lot.title}"></td>
+                <td th:text="${lot.description}"></td>
+                <td th:text="${lot.startTime}"></td>
+                <td th:text="${lot.endTime}"></td>
+                <td th:text="${lot.startingPrice.price}"></td>
+
+                <td><a type="button" th:href="@{delete/{id}(id=${lot.id})}">Delete</a></td>
+                <td><a type="button" th:href="@{generate/{id}(id=${lot.id})}">Generate Url</a></td>
+                <form method="post" th:action="@{/start/auction/{id}(id=${lot.id})}">
+                    <button type="submit">Start Auction</button>
+                </form>
+                <form method="post" th:action="@{/stop/auction/{id}(id=${lot.id})}">
+                    <button type="submit">Stop Auction</button>
+                </form>
+            </tr>
+            </tbody>
+        </table>
+        <p th:if="${param.lotUrl}">Your own lot URL: <a th:text="${param.lotUrl}"></a></p>
+    </div>
+</div>
+</body>
+</html>

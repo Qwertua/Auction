@@ -65,7 +65,7 @@ public class LotsService {
     }
 
     public String generateLotUrl(Long id) {
-        String baseUrl = "http://localhost:8080/lot/{id}";
+        String baseUrl = "http://localhost:8080/searchLotById?id={id}";
         return UriComponentsBuilder.fromHttpUrl(baseUrl)
                 .buildAndExpand(id)
                 .toUriString();
