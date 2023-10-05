@@ -10,23 +10,27 @@ import java.util.Optional;
 @Service
 public class StartingPriceService {
 
-    private final StartingPriceRepository repository;
+    private final StartingPriceRepository startingPriceRepository;
 
     @Autowired
-    public StartingPriceService(StartingPriceRepository repository) {
-        this.repository = repository;
+    public StartingPriceService(StartingPriceRepository startingPriceRepository) {
+        this.startingPriceRepository = startingPriceRepository;
     }
 
     public StartingPrice updatePriceById(Long id, StartingPrice updatedPrice) {
 
-        Optional<StartingPrice> optionalStartingPrice = repository.findById(id);
+        Optional<StartingPrice> optionalStartingPrice = startingPriceRepository.findById(id);
         StartingPrice existingPrice = optionalStartingPrice.get();
 
         if (updatedPrice.getPrice() > existingPrice.getPrice()) {
             existingPrice.setPrice(updatedPrice.getPrice());
-            return repository.save(existingPrice);
+            return startingPriceRepository.save(existingPrice);
         } else {
             throw new IllegalArgumentException("Updated price must be > existing price");
         }
+    }
+
+    public StartingPrice save(StartingPrice startingPrice) {
+        return startingPriceRepository.save(startingPrice);
     }
 }
