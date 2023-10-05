@@ -12,7 +12,6 @@
         <table>
             <thead>
             <tr>
-                <th>Id</th>
                 <th>Tittle</th>
                 <th>Description</th>
                 <th>StartTime</th>
@@ -22,7 +21,6 @@
             </thead>
             <tbody>
             <tr th:each="lot : ${lots}">
-                <td th:text="${lot.id}"></td>
                 <td th:text="${lot.title}"></td>
                 <td th:text="${lot.description}"></td>
                 <td th:text="${lot.startTime}"></td>
@@ -41,7 +39,6 @@
         <button type="submit">Search Lot</button>
     </form>
 </div>
-
 <div>
     <h2>Update Lot Price</h2>
     <form method="post" action="/updatePrice">
@@ -54,13 +51,21 @@
         <button type="submit">Update Price</button>
     </form>
 </div>
-
 <br>
 <div>
     <form method="get" action="/addLot">
         <button type="submit">Add new lot</button>
     </form>
+    <p th:if="${createdLotId}">Your own lot ID: <span th:text="${createdLotId}"></span></p>
 </div>
-
+<div>
+    <h2>Enter your LotId</h2>
+    <form method="get" action="/searchLotById">
+        <label for="id">LotId</label>
+        <input type="text" id="id" name="id">
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+</div>
 </body>
 </html>
