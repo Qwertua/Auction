@@ -49,4 +49,10 @@ public class LotsController {
         return "redirect:/lots";
     }
 
+    @PostMapping("/searchLot")
+    public String searchLotByTitle(@RequestParam String title, Model model) {
+        List<Lots> matchingLots = lotsService.searchLotByTittle(title);
+        model.addAttribute("matchingLots", matchingLots);
+        return "lot-search-result";
+    }
 }
