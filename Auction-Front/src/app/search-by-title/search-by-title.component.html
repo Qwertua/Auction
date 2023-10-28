@@ -1,0 +1,37 @@
+<div class="container mt-5">
+  <h3>Search lot by title</h3>
+  <input type="text" id="titleInput" class="form-control" [(ngModel)]="title">
+  <button (click)="getData()" class="mt-3 btn btn-primary">Search lot</button>
+<div *ngIf="lot">
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let lots of lot">
+        <td>{{ lots.title }}</td>
+        <td>{{ lots.description }}</td>
+        <td>{{ lots.startTime | date:'medium' }}</td>
+        <td>{{ lots.endTime | date:'medium' }}</td>
+        <td>{{ lots.startingPrice.price | currency:'USD' }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  <div *ngIf="error">
+    <div class="alert alert-danger">
+      <strong>Error:</strong> {{ error }}
+    </div>
+  </div>
+</div>
+
+
+
