@@ -16,7 +16,7 @@ public class StartingPriceController {
         this.startingPriceService = startingPriceService;
     }
 
-    @PostMapping("/updatePrice")
+    @PostMapping("/update/price")
     public String updatePrice(@RequestParam("lotTitle") String lotTitle, @RequestParam("newPrice") int newPrice) {
         try {
             startingPriceService.updatePriceByLotTitle(lotTitle, newPrice);

@@ -1,0 +1,23 @@
+<div class="container" *ngIf="lots">
+  <h1 class="mt-5">Active Lots</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let lot of lots">
+      <td>{{ lot.title }}</td>
+      <td>{{ lot.description }}</td>
+      <td>{{ lot.startTime | date:'medium' }}</td>
+      <td>{{ lot.endTime | date:'medium' }}</td>
+      <td>{{ lot.startingPrice.price | currency:'USD' }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
