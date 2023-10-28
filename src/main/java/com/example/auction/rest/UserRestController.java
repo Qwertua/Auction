@@ -24,8 +24,8 @@ public class UserRestController {
         return usersService.getAllUsers();
     }
 
-    @GetMapping("/search/user/{id}")
-    public Users searchById(@PathVariable Long id){
+    @GetMapping("/search/user")
+    public Users searchById(@RequestParam Long id){
         return usersService.findById(id);
     }
 
