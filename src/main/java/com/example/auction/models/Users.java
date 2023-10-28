@@ -1,7 +1,10 @@
 package com.example.auction.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -15,4 +18,7 @@ public class Users {
     private String name;
     private String password;
 
+    @JsonManagedReference
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY,mappedBy = "user")
+    private List<Lots> lots;
 }
