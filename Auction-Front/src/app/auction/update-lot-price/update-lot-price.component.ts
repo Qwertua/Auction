@@ -38,8 +38,7 @@ export class UpdateLotPriceComponent {
       this.httpService.postData(this.title, this.price).subscribe({
         next: (response) => {
           if (response && Object.keys(response).length > 0) {
-          } else {
-            this.error = 'Lot not found';
+            this.lot = response;
           }
         },
         error: (error) => {
