@@ -24,7 +24,7 @@ export class LoginComponent {
     this.authService.login(this.name, this.password).subscribe((user) => {
       if (user) {
         console.log('User data received:', user);
-        this.authService.setUser(user); // Обновите данные пользователя в сервисе
+        this.authService.setUser(user);
         this.router.navigate(['/auction']);
       } else {
         console.log('Invalid credentials');
