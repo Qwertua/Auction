@@ -18,14 +18,17 @@ public class AuthController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Users user) {
-        Users existingUser = userRepository.findByName(user.getName());
+    @PostMapping(value = "/register", consumes = "application/x-www-form-urlencoded")
+    public ResponseEntity<?> register(@RequestParam String name, @RequestParam String password) {
+        Users existingUser = userRepository.findByName(name);
         if (existingUser != null) {
             return ResponseEntity.badRequest().body("User already exists");
         }
-        userRepository.save(user);
-        return ResponseEntity.ok("User registered");
+        Users users = new Users();
+        users.setName(name);
+        users.setPassword(password);
+        userRepository.save(users);
+        return ResponseEntity.ok(users);
     }
 
     @PostMapping("/login")

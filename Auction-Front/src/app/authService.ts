@@ -12,8 +12,14 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  register(user: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/register`, user);
+  register(name: string, password: string): Observable<user[]> {
+    const body = new URLSearchParams();
+    body.set('name', name);
+    body.set('password', password);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    return this.http.post<user[]>(`${this.baseUrl}/register`, body.toString(), { headers });
   }
 
   login(name: string, password: string): Observable<user[]> {
