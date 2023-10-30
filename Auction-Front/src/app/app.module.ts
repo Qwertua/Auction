@@ -13,6 +13,7 @@ import {RouterModule} from "@angular/router";
 import { RegComponent } from './reg/reg.component';
 import { AuctionComponent } from './auction/auction.component';
 import {AuthService} from "./authService";
+import { OwnLotsComponent } from './auction/own-lots/own-lots.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import {AuthService} from "./authService";
     LoginComponent,
     RegComponent,
     AuctionComponent,
+    OwnLotsComponent,
   ],
   imports: [
     BrowserModule,

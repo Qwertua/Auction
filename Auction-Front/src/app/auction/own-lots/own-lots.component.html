@@ -1,0 +1,34 @@
+<div class="container" *ngIf="user" >
+  <h1 class="mt-5">{{ user.name }}'s Lots</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Lot Title</th>
+      <th>Lot Description</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Price</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let lot of user.lots">
+      <td>{{ lot.title }}</td>
+      <td>{{ lot.description }}</td>
+      <td>{{ lot.startTime | date: 'medium' }}</td>
+      <td>{{ lot.endTime | date: 'medium' }}</td>
+      <td>{{ lot.startingPrice.price | currency: 'USD' }}</td>
+      <td>
+        <button (click)="delete(lot.id)" class="btn btn-danger btn-sm mr-5">Delete</button>
+        <button (click)="generateUrl(lot.id)" class="btn btn-primary btn-sm mr-5">Generate Url</button>
+        <button (click)="start(lot.id)" class="btn btn-success btn-sm mr-5">Start Auction</button>
+        <button (click)="stop(lot.id)" class="btn btn-warning btn-sm">Stop Auction</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div *ngIf="url">
+    <p *ngIf="url">{{ url }}</p>
+  </div>
+</div>
+

@@ -4,7 +4,6 @@ import com.example.auction.models.Lots;
 import com.example.auction.repo.LotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -65,9 +64,6 @@ public class LotsService {
     }
 
     public String generateLotUrl(Long id) {
-        String baseUrl = "http://localhost:8080/searchLotById?id={id}";
-        return UriComponentsBuilder.fromHttpUrl(baseUrl)
-                .buildAndExpand(id)
-                .toUriString();
+        return "http://localhost:8080/searchLotById?id=" + id;
     }
 }
