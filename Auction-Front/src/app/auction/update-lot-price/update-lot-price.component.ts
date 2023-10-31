@@ -45,5 +45,10 @@ export class UpdateLotPriceComponent {
           this.error = 'Updated price must be > existing price';
         }
       });
+      this.refreshPage();
     }
+
+  refreshPage() {
+    location.reload();
+  }
 }
