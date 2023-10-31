@@ -3,6 +3,7 @@ import {Subscription} from "rxjs";
 import { user } from 'src/app/user';
 import {AuthService} from "../../authService";
 import {HttpOwnerService} from "./http-owner-service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-own-lots',
@@ -15,13 +16,10 @@ export class OwnLotsComponent implements OnInit, OnDestroy {
   private userSubscription!: Subscription;
   url: string = '';
 
-  constructor(private authService: AuthService, private httpOwnerService: HttpOwnerService) {}
+  constructor(private authService: AuthService, private httpOwnerService: HttpOwnerService, private router: Router) {}
 
   ngOnInit() {
-    this.userSubscription = this.authService.userData$.subscribe((user) => {
-      console.log(user);
-      this.user = user;
-    });
+    this.user = this.authService.getUser();
   }
 
   ngOnDestroy() {
@@ -30,8 +28,7 @@ export class OwnLotsComponent implements OnInit, OnDestroy {
 
   delete(lotId: number) {
     this.httpOwnerService.deleteLot(lotId).subscribe(() => {
-      // Обработка успешного удаления
-      // Можете обновить список лотов после удаления, если это необходимо
+      this.refreshPage();
     });
   }
 
@@ -39,7 +36,6 @@ export class OwnLotsComponent implements OnInit, OnDestroy {
     this.httpOwnerService.generateUrl(lotId).subscribe((response: string) => {
       if (response) {
         this.url = response;
-        console.log(this.url);
       }
     });
   }
@@ -47,13 +43,17 @@ export class OwnLotsComponent implements OnInit, OnDestroy {
 
   start(lotId: number) {
     this.httpOwnerService.startAuction(lotId).subscribe(() => {
-      // Обработка успешного запуска аукциона
+      this.refreshPage();
     });
   }
 
   stop(lotId: number) {
     this.httpOwnerService.stopAuction(lotId).subscribe(() => {
-      // Обработка успешной остановки аукциона
+      this.refreshPage();
     });
+  }
+
+  refreshPage() {
+    location.reload();
   }
 }
