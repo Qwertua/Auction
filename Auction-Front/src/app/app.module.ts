@@ -14,6 +14,7 @@ import { RegComponent } from './reg/reg.component';
 import { AuctionComponent } from './auction/auction.component';
 import {AuthService} from "./authService";
 import { OwnLotsComponent } from './auction/own-lots/own-lots.component';
+import { AddingLotComponent } from './auction/adding-lot/adding-lot.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { OwnLotsComponent } from './auction/own-lots/own-lots.component';
     RegComponent,
     AuctionComponent,
     OwnLotsComponent,
+    AddingLotComponent,
   ],
   imports: [
     BrowserModule,

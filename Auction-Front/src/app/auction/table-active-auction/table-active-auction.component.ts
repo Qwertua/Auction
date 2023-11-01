@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Lots} from "./Lots";
 import {HttpService} from "./HttpService";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-table-active-auction',
@@ -11,11 +12,15 @@ export class TableActiveAuctionComponent {
 
   lots: Lots[] = [];
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, private router: Router) { }
 
   ngOnInit(): void {
     this.httpService.getActiveLots().subscribe((data: Lots[]) => {
       this.lots = data;
     });
+  }
+
+  logout() {
+    this.router.navigate(['/login'])
   }
 }

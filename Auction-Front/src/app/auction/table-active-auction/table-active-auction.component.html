@@ -1,5 +1,8 @@
 <div class="container" *ngIf="lots">
-  <h1 class="mt-5">Active Lots</h1>
+  <nav class="navbar navbar-light justify-content-between">
+    <h1 class="mt-5">Active Lots</h1>
+    <button class="btn btn-danger" (click)="logout()">Logout</button>
+  </nav>
   <table class="table table-striped">
     <thead>
     <tr>
