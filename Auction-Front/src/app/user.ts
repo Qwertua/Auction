@@ -2,17 +2,17 @@ export interface user{
   id: number,
   name: string,
   password: string,
-  lots: Lot[];
+  lots: Lots[];
 }
 
-export interface Lot {
-  id: number;
+export interface Lots{
+  id: any;
   title: string;
   description: string;
   startTime: string;
   endTime: string;
   startingPrice: {
-    id: number;
+    id: any;
     price: number;
   };
 }

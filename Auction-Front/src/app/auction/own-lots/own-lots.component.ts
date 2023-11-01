@@ -11,19 +11,15 @@ import {Router} from "@angular/router";
   styleUrls: ['./own-lots.component.css'],
   providers:[HttpOwnerService]
 })
-export class OwnLotsComponent implements OnInit, OnDestroy {
+export class OwnLotsComponent implements OnInit{
   user: user | undefined;
   private userSubscription!: Subscription;
   url: string = '';
 
-  constructor(private authService: AuthService, private httpOwnerService: HttpOwnerService, private router: Router) {}
+  constructor(private authService: AuthService, private httpOwnerService: HttpOwnerService) {}
 
   ngOnInit() {
     this.user = this.authService.getUser();
-  }
-
-  ngOnDestroy() {
-    this.userSubscription.unsubscribe();
   }
 
   delete(lotId: number) {

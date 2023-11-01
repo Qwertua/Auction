@@ -1,7 +1,11 @@
 package com.example.auction.services;
 
 import com.example.auction.models.Lots;
+import com.example.auction.models.StartingPrice;
+import com.example.auction.models.Users;
 import com.example.auction.repo.LotRepository;
+import com.example.auction.repo.StartingPriceRepository;
+import com.example.auction.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +21,15 @@ import java.util.stream.Collectors;
 public class LotsService {
 
     private final LotRepository lotRepository;
+    private final UserRepository userRepository;
+    private final StartingPriceRepository startingPriceRepository;
     private final Map<Long, Boolean> auctionStatusMap = new HashMap<>();
 
     @Autowired
-    public LotsService(LotRepository lotRepository) {
+    public LotsService(LotRepository lotRepository, UserRepository userRepository,StartingPriceRepository startingPriceRepository) {
         this.lotRepository = lotRepository;
+        this.userRepository = userRepository;
+        this.startingPriceRepository = startingPriceRepository;
     }
 
     public Lots findById(Long id) {
@@ -65,5 +73,18 @@ public class LotsService {
 
     public String generateLotUrl(Long id) {
         return "http://localhost:8080/searchLotById?id=" + id;
+    }
+
+    public Lots addLotToUser(Long userId, Lots lot) {
+        Users user = userRepository.findById(userId).orElse(null);
+
+        StartingPrice startingPrice = new StartingPrice();
+        startingPrice.setPrice(lot.getStartingPrice().getPrice());
+        startingPrice = startingPriceRepository.save(startingPrice);
+
+        lot.setStartingPrice(startingPrice);
+        lot.setUser(user);
+
+        return lotRepository.save(lot);
     }
 }
